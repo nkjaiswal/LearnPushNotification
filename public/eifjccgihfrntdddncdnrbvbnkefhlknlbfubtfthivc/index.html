@@ -1,3 +1,44 @@
 <html>
-    
+    <head><title>Send Notification</title>
+        <style>
+            .block {
+              display: block;
+              width: 100%;
+              border: none;
+              background-color: #4CAF50;
+              color: white;
+              padding: 14px 28px;
+              font-size: 16px;
+              cursor: pointer;
+              text-align: center;
+            }
+            
+            .block:hover {
+              background-color: #ddd;
+              color: black;
+            }
+            </style>
+        </head>
+    <body>
+        <select class="block" id="msg">
+            <option value = "Water Started for Gandhi Chowk">Gandhi Chowk</option>
+        </select>
+        <input type="button" class="block" value="ALERT" onclick="send()">
+    </body>
+    <script type="text/javascript">
+    function send(){
+        var xhr = new XMLHttpRequest();
+        var url = "/send-notification";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert("OK");
+            }
+        };
+        var title = document.getElementById("msg").value;
+        var data = JSON.stringify({"title": title, "message": title});
+        xhr.send(data);
+    }
+    </script>
 </html>
