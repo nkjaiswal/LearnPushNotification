@@ -21,7 +21,7 @@ var client = new Client();
  
 app.post('/send-notification', function(req, res){
     var args = {
-        data: "title=Test&message=Test&url=https://katras.herokuapp.com",
+        data: "title="+req.body.title+"&message="+req.body.message+"&url=https://katras.herokuapp.com",
         headers: { "Content-Type": "application/x-www-form-urlencoded", "Authorization":"api_key=" + api_key}
     };
      
