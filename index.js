@@ -14,3 +14,24 @@ var server = app.listen(http_port, function(){
     console.log('Listening at http://127.0.0.1:' + http_port);    
 });
 app.use('/', express.static('public'));
+
+var api_key = process.env.API_KEY;
+var Client = require('node-rest-client').Client;
+var client = new Client();
+ 
+app.post('/send-notification', function(req, res){
+    var args = {
+        data: {
+            title: req.body.title,
+            message: req.body.message
+        },
+        headers: { "Content-Type": "application/json" }
+    };
+     
+    client.post("https://api.pushalert.co/rest/v1/send", args, function (data, response) {
+        // parsed response body as js object
+        console.log(data);
+        // raw response
+        console.log(response);
+    });
+});
