@@ -21,17 +21,15 @@ var client = new Client();
  
 app.post('/send-notification', function(req, res){
     var args = {
-        data: {
-            title: req.body.title,
-            message: req.body.message
-        },
-        headers: { "Content-Type": "application/json" }
+        data: "title=Test&message=Test&url=https://katras.herokuapp.com",
+        headers: { "Content-Type": "application/x-www-form-urlencoded", "Authorization":"api_key=" + api_key}
     };
      
     client.post("https://api.pushalert.co/rest/v1/send", args, function (data, response) {
         // parsed response body as js object
-        console.log(data);
+        console.log(data.toString());
         // raw response
-        console.log(response);
+        // console.log(response);
     });
+    res.send("Processing...");
 });
